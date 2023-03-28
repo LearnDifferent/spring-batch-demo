@@ -6,4 +6,7 @@ spring:
     init:
       # 这是 Spring Batch 自带的 MySQL 脚本文件
       schema-locations: classpath:/org/springframework/batch/core/schema-mysql.sql
-      mode: always
+      # always: Always initialize the database.
+      # embedded: Only initialize an embedded database.
+      # never: Never initialize the database.
+      mode: embedded
