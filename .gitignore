@@ -1,3 +1,6 @@
+application-*.yml
+!application-env.template.yml
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
