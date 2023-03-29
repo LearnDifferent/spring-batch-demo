@@ -124,4 +124,6 @@ public interface JobLauncher {
 
 ### Job Flow
 
-Job Flow 用于控制多个 Step 的执行顺序。
+Job Flow 是多个 Step 的集合，并定义了多个 Step 之间的关系，用于控制多个 Step 的执行顺序。
+
+使用 Flow 的主要目的是复用 -- Flow can be reused within a `Job`
