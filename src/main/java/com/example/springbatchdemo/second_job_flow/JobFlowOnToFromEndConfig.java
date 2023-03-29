@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 学习 Job Flow 通过 on(), to(), from() 和 end() 来指定 Step 运行的顺序
+ * 注：实际上这里是 Job 可以通过 on(), to(), from() 和 end() 来指定 Step 运行的顺序
  *
  * @author zhou
  * @date 2023/3/29

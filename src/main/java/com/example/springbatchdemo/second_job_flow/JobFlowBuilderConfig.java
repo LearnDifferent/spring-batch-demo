@@ -5,83 +5,87 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.FlowBuilder;
+import org.springframework.batch.core.job.flow.Flow;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 学习 Job Flow 通过 next() 来指定 Step 运行的顺序
- * 注：实际上这里是 Job 可以通过 next() 来指定 Step 运行的顺序
+ * 学习通过 Flow Builder 来创建 Job Flow
  *
  * @author zhou
- * @date 2023/3/28
+ * @date 2023/3/29
  */
 @Configuration
-public class JobFlowNextConfig {
+public class JobFlowBuilderConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
 
     private final StepBuilderFactory stepBuilderFactory;
 
-    public JobFlowNextConfig(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
+    public JobFlowBuilderConfig(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
     }
 
     @Bean
-    public Job jobNextFlowDemo() {
+    public Job jobWithFlow() {
+        String name = "jobWithFlow";
         return jobBuilderFactory
-                .get("jobNextFlowDemo")
-                .start(firstNextFlowStep())
-                .next(secondNextFlowStep())
-                .next(thirdNextFlowStep())
-                .next(lastNextFlowStep())
+                .get(name)
+                // 使用 Flow 而不是 Step
+                .start(jobFlowDemo1())
+                .next(stepExceptionFlowStep())
+                .end()
+                .build();
+    }
+
+    /**
+     * Flow 可以由多个 Step 组成
+     *
+     * @return 返回 Flow
+     */
+    @Bean
+    public Flow jobFlowDemo1() {
+        String name = "jobFlowDemo1";
+        return new FlowBuilder<Flow>(name)
+                .start(flowStep1())
+                .next(flowStep2())
                 .build();
     }
 
     @Bean
-    public Step lastNextFlowStep() {
-        String name = "lastNextFlowStep";
+    public Step flowStep1() {
+        String name = "flowStep1";
         return stepBuilderFactory
                 .get(name)
                 .tasklet((stepContribution, chunkContext) -> {
-                    System.out.println(name + Constant.IS_RUNNING);
+                    System.out.println(name + Constant.IS_RUNNING + "：这是 Flow 里面的 Step");
                     return RepeatStatus.FINISHED;
                 })
                 .build();
     }
 
     @Bean
-    public Step thirdNextFlowStep() {
-        String name = "thirdNextFlowStep";
+    public Step flowStep2() {
+        String name = "flowStep2";
         return stepBuilderFactory
                 .get(name)
                 .tasklet((stepContribution, chunkContext) -> {
-                    System.out.println(name + Constant.IS_RUNNING);
+                    System.out.println(name + Constant.IS_RUNNING + "：这是 Flow 里面的 Step");
                     return RepeatStatus.FINISHED;
                 })
                 .build();
     }
 
     @Bean
-    public Step secondNextFlowStep() {
-        String name = "secondNextFlowStep";
+    public Step stepExceptionFlowStep() {
+        String name = "stepExceptionFlowStep";
         return stepBuilderFactory
                 .get(name)
                 .tasklet((stepContribution, chunkContext) -> {
-                    System.out.println(name + Constant.IS_RUNNING);
-                    return RepeatStatus.FINISHED;
-                })
-                .build();
-    }
-
-    @Bean
-    public Step firstNextFlowStep() {
-        String name = "firstNextFlowStep";
-        return stepBuilderFactory
-                .get(name)
-                .tasklet((stepContribution, chunkContext) -> {
-                    System.out.println(name + Constant.IS_RUNNING);
+                    System.out.println(name + Constant.IS_RUNNING + "：这不是 Flow 里面的 Step");
                     return RepeatStatus.FINISHED;
                 })
                 .build();
