@@ -34,8 +34,6 @@
 
 - `JobExecution` 就是 `JobInstance` 的实际 尝试执行。Each `JobInstance` can have multiple executions .
 
-
-
 How is one `JobInstance` distinguished from another? The answer is `JobParameters`.
 
 **A `JobParameters` object holds a set of parameters used to start a batch job.**
@@ -127,3 +125,7 @@ public interface JobLauncher {
 Job Flow 是多个 Step 的集合，并定义了多个 Step 之间的关系，用于控制多个 Step 的执行顺序。
 
 使用 Flow 的主要目的是复用 -- Flow can be reused within a `Job`
+
+### Split
+
+使用 Split 可以并发地执行多个 Flow (Execute multiple flows in parallel)
