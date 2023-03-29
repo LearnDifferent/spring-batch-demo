@@ -129,3 +129,11 @@ Job Flow 是多个 Step 的集合，并定义了多个 Step 之间的关系，�
 ### Split
 
 使用 Split 可以并发地执行多个 Flow (Execute multiple flows in parallel)
+
+### JobExecutionDecider
+
+`JobExecutionDecider` （决策器）可以主动地控制状态流转。
+
+如果没有 `JobExecutionDecider` ，那么它是通过 Step 返回的 `ExitStatus` 来控制流程的。
+
+如果 implements 了 `JobExecutionDecider` 接口，那么它通过重写 `public FlowExecutionStatus decide(JobExecution jobExecution, StepExecution stepExecution)` 方法来返回自定义的 `FlowExecutionStatus` ，以此来控制流程状态。
