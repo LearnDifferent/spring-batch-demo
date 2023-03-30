@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2023/3/28
  */
 @Configuration
+@EnableBatchProcessing
 public class JobConfig {
 
     private final JobBuilderFactory jobBuilderFactory;

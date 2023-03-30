@@ -1,20 +1,20 @@
-package com.example.springbatchdemo;
+package com.example.springbatchdemo.third_split;
 
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 使用 @EnableBatchProcessing 来开启 Spring Batch
+ * Split
  *
  * @author zhou
+ * @date 2023/3/30
  */
 @EnableBatchProcessing
 @SpringBootApplication
-public class SpringBatchDemoApplication {
+public class SplitDemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBatchDemoApplication.class, args);
+        SpringApplication.run(SplitDemoApplication.class, args);
     }
-
 }
