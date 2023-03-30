@@ -1,5 +1,6 @@
 application-*.yml
 !application-env.template.yml
+!application-nested-job.yml
 
 HELP.md
 target/

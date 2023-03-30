@@ -137,3 +137,13 @@ Job Flow 是多个 Step 的集合，并定义了多个 Step 之间的关系，�
 如果没有 `JobExecutionDecider` ，那么它是通过 Step 返回的 `ExitStatus` 来控制流程的。
 
 如果 implements 了 `JobExecutionDecider` 接口，那么它通过重写 `public FlowExecutionStatus decide(JobExecution jobExecution, StepExecution stepExecution)` 方法来返回自定义的 `FlowExecutionStatus` ，以此来控制流程状态。
+
+### Nested Job
+
+One `Job` can be nested in another `Job`. We call the nested job the child job, while the nesting job the parent job.
+
+The child job will not execute separately but be launched by the parent job.
+
+注意：Nested Job 需要到配置文件中配置 spring.batch.job.names 为当前的 Parent Job 的 Bean，这样的话就可以指定只启动这个 Parent Job，其他的 Child Job 只会通过这个 Parent Job 来启动。
+
+如果没有配置 spring.batch.job.names，那么 Child Job，除了被 Parent Job 启动之外，自己还会启动一次。

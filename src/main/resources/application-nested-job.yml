@@ -1,0 +1,5 @@
+# spring.batch.job.names 表示整个文件中，都只启动一个 parentJob
+spring:
+  batch:
+    job:
+      names: parentJob
