@@ -147,3 +147,14 @@ The child job will not execute separately but be launched by the parent job.
 注意：Nested Job 需要到配置文件中配置 spring.batch.job.names 为当前的 Parent Job 的 Bean，这样的话就可以指定只启动这个 Parent Job，其他的 Child Job 只会通过这个 Parent Job 来启动。
 
 如果没有配置 spring.batch.job.names，那么 Child Job，除了被 Parent Job 启动之外，自己还会启动一次。
+
+### Listener
+
+Spring Batch 的监听器可以细分出多种：
+
+- JobExecutionListener: before, after
+- StepExecutionListener: before, after
+- ChunkListener: before, after, error
+- ItemReadListener, ItemProcessListener, ItemWriterListener: before, after, error
+
+Listener 可以通过注解或实现接口来实现。
