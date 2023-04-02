@@ -1,20 +1,20 @@
-package com.example.springbatchdemo.fifth_nested_job;
+package com.example.springbatchdemo.b_job_flow;
 
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Nested Job
+ * Job Flow
  *
  * @author zhou
  * @date 2023/3/30
  */
 @SpringBootApplication
 @EnableBatchProcessing
-public class NestedJobApplication {
+public class JobFlowDemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(NestedJobApplication.class, args);
+        SpringApplication.run(JobFlowDemoApplication.class, args);
     }
 }

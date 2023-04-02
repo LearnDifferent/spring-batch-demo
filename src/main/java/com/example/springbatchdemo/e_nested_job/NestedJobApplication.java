@@ -1,20 +1,20 @@
-package com.example.springbatchdemo.sixth_listener;
+package com.example.springbatchdemo.e_nested_job;
 
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Listener
+ * Nested Job
  *
  * @author zhou
- * @date 2023/3/31
+ * @date 2023/3/30
  */
 @SpringBootApplication
 @EnableBatchProcessing
-public class ListenerDemoApplication {
+public class NestedJobApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ListenerDemoApplication.class, args);
+        SpringApplication.run(NestedJobApplication.class, args);
     }
 }

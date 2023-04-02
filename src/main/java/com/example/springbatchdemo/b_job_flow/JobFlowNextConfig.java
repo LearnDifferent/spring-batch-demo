@@ -1,4 +1,4 @@
-package com.example.springbatchdemo.second_job_flow;
+package com.example.springbatchdemo.b_job_flow;
 
 import com.example.springbatchdemo.constant.Constant;
 import org.springframework.batch.core.Job;

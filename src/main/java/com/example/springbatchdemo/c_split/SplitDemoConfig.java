@@ -1,4 +1,4 @@
-package com.example.springbatchdemo.third_split;
+package com.example.springbatchdemo.c_split;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
