@@ -4,8 +4,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
   sql:
     init:
-      # 这是 Spring Batch 自带的 MySQL 脚本文件
-      schema-locations: classpath:delete-spring-batch-tables.sql,classpath:/org/springframework/batch/core/schema-mysql.sql
+      # classpath:/org/springframework/batch/core/schema-mysql.sql 是 Spring Batch 自带的 MySQL 脚本文件
+      schema-locations: classpath:delete-spring-batch-tables.sql,classpath:/org/springframework/batch/core/schema-mysql.sql,classpath:create_customer_batch_demo.sql
       # always: Always initialize the database.
       # embedded: Only initialize an embedded database.
       # never: Never initialize the database.
