@@ -1,5 +1,6 @@
 package com.example.springbatchdemo.i_jdbc_paging;
 
+import com.example.springbatchdemo.pojo.Customer;
 import java.util.List;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;

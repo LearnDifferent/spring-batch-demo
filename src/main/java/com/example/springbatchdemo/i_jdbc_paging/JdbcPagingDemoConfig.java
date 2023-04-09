@@ -1,6 +1,7 @@
 package com.example.springbatchdemo.i_jdbc_paging;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.example.springbatchdemo.pojo.Customer;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.batch.core.Job;

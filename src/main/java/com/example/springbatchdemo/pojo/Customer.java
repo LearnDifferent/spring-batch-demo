@@ -1,4 +1,4 @@
-package com.example.springbatchdemo.i_jdbc_paging;
+package com.example.springbatchdemo.pojo;
 
 import java.util.Objects;
 
