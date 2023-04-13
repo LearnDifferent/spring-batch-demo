@@ -13,3 +13,12 @@ values ('a', 'address'),
        ('c', 'cddress'),
        ('e', 'eddress'),
        ('f', 'fddress');
+
+DROP TABLE IF EXISTS `customer_empty`;
+CREATE TABLE `customer_empty`
+(
+    `id`      int(11) unsigned NOT NULL,
+    `name`    varchar(50)      NOT NULL,
+    `address` varchar(255)     NOT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
