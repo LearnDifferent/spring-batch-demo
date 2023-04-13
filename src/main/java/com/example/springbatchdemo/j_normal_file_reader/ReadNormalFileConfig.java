@@ -1,4 +1,4 @@
-package com.example.springbatchdemo.j_normal_file;
+package com.example.springbatchdemo.j_normal_file_reader;
 
 import com.example.springbatchdemo.pojo.Customer;
 import org.springframework.batch.core.Job;

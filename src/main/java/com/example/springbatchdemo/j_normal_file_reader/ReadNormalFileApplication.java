@@ -1,4 +1,4 @@
-package com.example.springbatchdemo.j_normal_file;
+package com.example.springbatchdemo.j_normal_file_reader;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
