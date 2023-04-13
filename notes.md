@@ -158,3 +158,21 @@ Spring Batch 的监听器可以细分出多种：
 - ItemReadListener, ItemProcessListener, ItemWriterListener: before, after, error
 
 Listener 可以通过注解或实现接口来实现。
+
+### ItemStream
+
+`ItemStream` interface can be used to access `ExecutionContext` where the state is maintained.
+
+`ExecutionContext` is a map that represents the state of a particular step. 
+
+The `ExecutionContext` makes it possible to restart a step cause the state is persisted in the `JobRepository` .
+
+When there is something wrong during execution, the last state will be updated to `JobRepository` .
+
+Next time when the job runs, the last state will be used to populate the `ExecutionContext` and then can continue running from where is left last time.
+
+`ItemStream` interface: 
+
+- `open()` will be called at the beginning of the step and `ExecutionContext` will be populated with the value from DB
+- `update()` will be called at the end of each step or transaction to update the `ExecutionContext` 
+- `close()` is called when all chunk of data is done
