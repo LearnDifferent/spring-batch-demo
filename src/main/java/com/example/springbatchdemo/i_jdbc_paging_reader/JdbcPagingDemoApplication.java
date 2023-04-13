@@ -1,4 +1,4 @@
-package com.example.springbatchdemo.i_jdbc_paging;
+package com.example.springbatchdemo.i_jdbc_paging_reader;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
