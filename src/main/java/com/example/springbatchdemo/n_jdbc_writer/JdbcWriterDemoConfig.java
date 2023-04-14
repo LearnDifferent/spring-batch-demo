@@ -65,7 +65,7 @@ public class JdbcWriterDemoConfig {
     public ListItemReader<? extends Customer> jdbcWriterDemoItemReader() {
         List<Customer> list = new ArrayList<>();
         long times = 100L;
-        for (long i = 0; i < times; i++) {
+        for (long i = 0L; i < times; i++) {
             Customer customer = new Customer();
             customer.setId(i);
             customer.setName("name" + i);
