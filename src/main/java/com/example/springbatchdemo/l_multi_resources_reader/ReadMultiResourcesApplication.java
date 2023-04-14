@@ -1,4 +1,4 @@
-package com.example.springbatchdemo.l_multi_resources;
+package com.example.springbatchdemo.l_multi_resources_reader;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

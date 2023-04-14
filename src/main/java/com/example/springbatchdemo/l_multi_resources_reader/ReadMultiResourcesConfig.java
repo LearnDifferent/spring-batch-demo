@@ -1,4 +1,4 @@
-package com.example.springbatchdemo.l_multi_resources;
+package com.example.springbatchdemo.l_multi_resources_reader;
 
 import com.example.springbatchdemo.pojo.Customer;
 import org.springframework.batch.core.Job;

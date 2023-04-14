@@ -1,4 +1,4 @@
-package com.example.springbatchdemo.l_multi_resources;
+package com.example.springbatchdemo.l_multi_resources_reader;
 
 import com.example.springbatchdemo.pojo.Customer;
 import java.util.List;
