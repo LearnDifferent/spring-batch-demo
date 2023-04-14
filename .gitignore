@@ -3,6 +3,8 @@ application-*.yml
 !application-nested-job.yml
 !application-stop-init.yml
 
+write_normal_file*.txt
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
