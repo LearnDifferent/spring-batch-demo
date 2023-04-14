@@ -1,4 +1,4 @@
-package com.example.springbatchdemo.k_xml_flie;
+package com.example.springbatchdemo.k_xml_flie_reader;
 
 import com.example.springbatchdemo.pojo.Customer;
 import java.util.HashMap;

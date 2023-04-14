@@ -1,4 +1,4 @@
-package com.example.springbatchdemo.k_xml_flie;
+package com.example.springbatchdemo.k_xml_flie_reader;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
