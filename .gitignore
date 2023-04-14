@@ -4,6 +4,7 @@ application-*.yml
 !application-stop-init.yml
 
 write_normal_file*.txt
+write_xml_file*.xml
 
 HELP.md
 target/
