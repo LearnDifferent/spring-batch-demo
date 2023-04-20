@@ -1,0 +1,5 @@
+# 禁止 Spring 容器自动启动 Job
+spring:
+  batch:
+    job:
+      enabled: false

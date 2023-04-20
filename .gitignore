@@ -2,6 +2,7 @@ application-*.yml
 !application-env.template.yml
 !application-nested-job.yml
 !application-stop-init.yml
+!application-stop-auto.yml
 
 *write_normal_file*.txt
 *write_xml_file*.xml
