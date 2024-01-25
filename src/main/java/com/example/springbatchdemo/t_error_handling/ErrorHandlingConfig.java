@@ -43,11 +43,11 @@ public class ErrorHandlingConfig {
     @Bean
     public Step errorHandlingStep() {
         return stepBuilderFactory.get("errorHandlingStep")
-                .tasklet(ErrorHandlingTasklet())
+                .tasklet(errorHandlingTasklet())
                 .build();
     }
 
-    private Tasklet ErrorHandlingTasklet() {
+    private Tasklet errorHandlingTasklet() {
         return new Tasklet() {
             @Override
             public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
