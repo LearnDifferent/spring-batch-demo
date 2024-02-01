@@ -137,20 +137,24 @@ Step 分类：
   - 定义：item-based to process the item one by one
   
   - 步骤 1：`ItemReader` 用于 input（输入数据、读取数据）
-  
+
   - 步骤 2：`ItemProcessor` 用于 processing (optional)（处理数据）
-  
+
   - 步骤 3：`ItemWriter` 用于 output（输出数据）
 
 ---
 
 `StepExecution` represents a single attempt to execute a `Step`.
 
-A new `StepExecution` is created each time a `Step` is actually started, similar to `JobExecution`. 
+A new `StepExecution` is created each time a `Step` is actually started, similar to `JobExecution`.
+
+每个 StepExecution 都包含对其相应步骤的引用以及 JobExecution 和事务相关的数据，例如提交和回滚计数以及开始和结束时间。 此外，每个步骤执行都包含一个
+ExecutionContext，其中包含开发人员需要在批处理运行中保留的任何数据，例如重新启动所需的统计信息或状态信息。
 
 ### ExecutionContext
 
-An ExecutionContext（执行上下文）represents <u>a collection of key/value pairs</u> that are persisted and controlled by the framework in order to allow developers a place to store persistent state.
+An ExecutionContext（执行上下文）represents <u>a collection of key/value pairs</u> that are persisted and controlled by the
+framework in order to allow developers a place to store persistent state.
 
 There is at least one ExecutionContext per `JobExecution` and one for every `StepExecution`.
 
@@ -162,9 +166,15 @@ There is at least one ExecutionContext per `JobExecution` and one for every `Ste
 
 JobRepository 是 Job 的持久化机制。
 
-When a `Job` is first launched, a `JobExecution` is obtained from the repository, and, during the course of execution, `StepExecution` and `JobExecution` implementations are persisted by passing them to the repository.
+When a `Job` is first launched, a `JobExecution` is obtained from the repository, and, during the course of
+execution, `StepExecution` and `JobExecution` implementations are persisted by passing them to the repository.
 
-也就是说，JobRepository 是将 `JobExecution` 和 `StepExecution` 的执行进行持久化（存入数据库等）的机制
+也就是说，JobRepository 是将 `JobExecution` 和 `StepExecution` 的执行进行持久化（存入数据库等）的机制。 它同时给 Job 和 Step 以及下文会提到的 JobLauncher 实现提供
+CRUD 操作。
+
+首次启动 Job 时，将从 repository 中获取 JobExecution，并且在执行批处理的过程中，StepExecution 和 JobExecution 将被存储到 repository 当中。
+
+`@EnableBatchProcessing` 注解可以为 JobRepository 提供自动配置。
 
 ### JobLauncher
 
@@ -174,7 +184,9 @@ When a `Job` is first launched, a `JobExecution` is obtained from the repository
 
 ```java
 public interface JobLauncher {
-    JobExecution run(Job job, JobParameters jobParameters ) throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException;
+
+  JobExecution run(Job job, JobParameters jobParameters)
+          throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException;
 }
 ```
 
@@ -182,9 +194,21 @@ public interface JobLauncher {
 
 `ItemReader` is used to retrieve the input data for a `Step` <u>one item at a time</u>.
 
+当 ItemReader 以及读完所有数据时，它会返回 null 来告诉后续操作数据已经读完。
+
+---
+
 `ItemProcesser` 用于处理数据。
 
-`ItemWriter` is used to output data for a `Step` <u>one batch or chunck of items at a time</u>.
+当 ItemReader 读取到一条记录之后，ItemWriter 还未写入这条记录之前，我们可以借助 temProcessor 提供一个处理业务逻辑的功能，并对数据进行相应操作。
+
+如果我们在 ItemProcessor 发现一条数据不应该被写入，可以通过返回 null 来表示。
+
+---
+
+`ItemWriter` is used to output data for a `Step` <u>one batch or chunk of items at a time</u>.
+
+它是为每一个 step 提供数据写出的功能。写的单位是可以配置的，我们可以一次写一条数据，也可以一次写一个 chunk 的数据
 
 ### Job Flow
 
