@@ -2,4 +2,4 @@
 
 ## Notes
 
-Checkout [notes.md](./notes.md)
+Checkout [notes.md](./notes/notes.md)
