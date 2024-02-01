@@ -2,7 +2,7 @@
 
 ## 基础概念
 
-### Spring Batch 介绍
+### Spring Batch 简介
 
 Spring Batch 是 Spring 提供的一个数据处理框架。企业域中的许多应用程序需要批量处理才能在关键任务环境中执行业务操作。
 
@@ -24,27 +24,51 @@ Spring Batch 可用于两种简单的用例（例如将文件读入数据库或�
 
 大批量批处理作业可以高度可扩展的方式利用该框架来处理大量信息。
 
+---
+
+**Spring Batch 总体框架**
+
+![spring_batch_arch.png](spring_batch_arch.png)
+
+在 Spring Batch 中一个 Job 可以定义很多的步骤 step。
+
+在每一个 step 里面可以定义：
+
+- ItemReader 用于读取数据
+- ItemProcessor 用于处理数据
+- ItemWriter 用于写数据
+
+而每一个定义的 Job 则都在 JobRepository 里面，我们可以通过 JobLauncher 来启动某一个 Job
+
 ### 批处理
 
 **批处理**：
 
 - 对有限数据（Finite Data）的处理
-  
+
   - the data can be processed to complete
 
 - 无需交互（No Interaction）
   
   - Interaction 的例子：Web Request（Web 请求）和 Message（发送消息）
-  
+
   - Batch Processing Program run on the server without the need of interaction
 
 - 任务是无外界中断的（No Interruption）
-  
+
   - From start to end
 
 > Non-Interactive application can consider using Batch Processing.
-> 
+>
 > Spring Batch is one of the solution.
+
+一个典型的批处理应用程序大致如下：
+
+- 从数据库，文件或队列中读取大量记录。
+- 以某种方式处理数据。
+- 以修改之后的形式写回数据。
+
+![batch_process.png](batch_process.png)
 
 ### Job
 
