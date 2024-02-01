@@ -72,6 +72,12 @@ Spring Batch 可用于两种简单的用例（例如将文件读入数据库或�
 
 ### Job
 
+在 Spring Batch 当中，job 是最顶层的抽象，除 job 之外我们还有 JobInstance 以及 JobExecution 这两个更加底层的抽象。
+
+一个 job 是我们运行的基本单位，它内部由 step 组成。job 本质上可以看成 step 的一个容器。
+
+一个 job 可以按照指定的逻辑顺序组合 step，并提供了我们给所有 step 设置相同属性的方法，例如一些事件监听，跳过策略。
+
 **Job**：
 
 - `Job` defines what a job is and how it is to be executed.
@@ -80,13 +86,27 @@ Spring Batch 可用于两种简单的用例（例如将文件读入数据库或�
 
 - `JobExecution` 就是 `JobInstance` 的实际 尝试执行。Each `JobInstance` can have multiple executions .
 
+**JobInstance**：
+
+- JobInstance 指的是 job 运行当中，作业执行过程当中的概念
+- 比如说现在有一个批处理的 job，它的功能是在一天结束时执行一次。在这个情况下，每天就会有一个逻辑意义上的 JobInstance，而我们必须记录 job 的每次运行的情况。
+
 How is one `JobInstance` distinguished from another? The answer is `JobParameters`.
 
 **A `JobParameters` object holds a set of parameters used to start a batch job.**
 
+`JobParameters` 用于区分相同 Job 定义下的不同 JobInstance。
+
+![job_params.png](job_params.png)
+
 `JobParameters` 可以是时间参数，比如今天执行了时间参数为 2023-03-28 的 job 之后（且状态为已完成），如果第二天还要执行时间参数为 2023-03-28 的 job 就会提示已经完成了。
 
 <u>判断一个 Job 是否要执行，就是看 `JobParameters` 和 status（完成状态）。</u>
+
+**JobExecution**：
+
+- JobExecution 指的是单次尝试运行一个我们定义好的 Job 的代码层面的概念
+- Job 的一次执行可能以失败也可能成功。只有当执行成功完成时，给定的与执行相对应的 JobInstance 才也被视为完成
 
 ---
 
@@ -158,7 +178,7 @@ public interface JobLauncher {
 }
 ```
 
-### ItemReader, ItemProcesser and ItemWriter
+### ItemReader, ItemProcessor and ItemWriter
 
 `ItemReader` is used to retrieve the input data for a `Step` <u>one item at a time</u>.
 
