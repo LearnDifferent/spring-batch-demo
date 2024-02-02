@@ -122,25 +122,19 @@ However, there is still only one `JobInstance`.
 
 A `Step` contains all of the information necessary to define and control the actual batch processing.
 
----
+![step_detail.png](step_detail.png)
 
 Step 分类：
 
 - Tasklet
-  
   - an interface with one execute() method
-  
   - 直接执行
-
 - Chunk-based
-  
   - 定义：item-based to process the item one by one
-  
   - 步骤 1：`ItemReader` 用于 input（输入数据、读取数据）
-
   - 步骤 2：`ItemProcessor` 用于 processing (optional)（处理数据）
-
   - 步骤 3：`ItemWriter` 用于 output（输出数据）
+  - 我们可以设定一个 chunk size，Spring Batch 将一条一条处理数据，但不提交到数据库，只有当处理的数据数量达到 chunk size 设定的值得时候，才一起去 commit
 
 ---
 
