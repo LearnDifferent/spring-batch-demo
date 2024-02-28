@@ -263,4 +263,12 @@ Next time when the job runs, the last state will be used to populate the `Execut
 
 ## 参考资料
 
+参考资料：
+
 - [批处理框架spring batch基础知识介绍](https://blog.csdn.net/topdeveloperr/article/details/84337956) / 内容相同的备份：[Spring Batch 批处理框架，真心强啊！！](https://mp.weixin.qq.com/s/zTdlFKF8pPcrXrrLAMMc0w)
+- [Spring Batch MyBatis](https://mybatis.org/spring/ja/batch.html)
+
+参考代码：
+
+- [spring-projects/spring-batch](https://github.com/spring-projects/spring-batch)
+- [pkainulainen/spring-batch-examples](https://github.com/pkainulainen/spring-batch-examples)
