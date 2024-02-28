@@ -261,6 +261,46 @@ Next time when the job runs, the last state will be used to populate the `Execut
 - `update()` will be called at the end of each step or transaction to update the `ExecutionContext` 
 - `close()` is called when all chunk of data is done
 
+### @StepScope
+
+官方文档：
+
+- Marking a `@Bean` as `@StepScope` is equivalent to marking it as `@Scope(value="step", proxyMode=TARGET_CLASS)`
+
+下文参考自 [Spring Batch中@StepScope的适用范围及理解](https://blog.csdn.net/lovepeacee/article/details/116003392) ：
+
+基础知识 - IoC 容器中的几种 Bean 的作用范围：
+
+- singleton 单例模式 – 全局有且仅有一个实例
+- prototype 原型模式 – 每次获取 Bean 的时候会有一个新的实例
+- request – request 表示该针对每一次 HTTP 请求都会产生一个新的 bean，同时该 bean 仅在当前 HTTP request 内有效
+- session – session 作用域表示该针对每一次 HTTP 请求都会产生一个新的 bean，同时该 bean 仅在当前 HTTP session 内有效
+- globalsession – global session 作用域类似于标准的 HTTP Session 作用域，不过它仅仅在基于 portlet 的 web 应用中才有意义
+
+在 Spring Batch 中，每个 Step 里面的最底层处理单位（reader、processor、writer、tasklet 等）必须跟 Step 的生命周期保持一致，所以直接标记 `@Bean` 会导致该处理单位内的 Bean 的生命周期是整个 Spring 的周期。
+
+使用方法如下：
+
+```java
+@Bean
+@StepScope
+public FlatFileItemWriter<Map> contInfoMyItemWriter(@Value("#{jobParameters['contractInfoDat']}") String contractInfoDat) {
+    return getGbkFlatFileItemWriter(contractInfoDat);
+}
+```
+
+注：上面的 `@Value("#{jobParameters['contractInfoDat']}")` 是用于获取执行时的 `JobParameters` 参数的 key 为 `contractInfoDat` 的值。
+
+---
+
+下文摘抄自 [How Does Spring Batch Step Scope Work](https://stackoverflow.com/questions/38780796/how-does-spring-batch-step-scope-work) ：
+
+> A spring batch `StepScope` object is one which is unique to a specific step and not a singleton. As you probably know, the default bean scope in Spring is a singleton. But by specifying a spring batch component being `StepScope` means that Spring Batch will use the spring container to instantiate a new instance of that component for each step execution.
+>
+> This is often useful for doing parameter late binding where a parameter may be specified either at the `StepContext` or the `JobExecutionContext` level and needs to be substituted for a placeholder, much like your example with the filename requirement.
+>
+> Another useful reason to use `StepScope` is when you decide to reuse the same component in parallel steps. If the component manages any internal state, its important that it be `StepScope` based so that one thread does not impair the state managed by another thread (e.g, each thread of a given step has its own instance of the `StepScope` component).
+
 ## 参考资料
 
 参考资料：
