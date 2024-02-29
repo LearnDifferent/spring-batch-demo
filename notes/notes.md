@@ -291,6 +291,8 @@ public FlatFileItemWriter<Map> contInfoMyItemWriter(@Value("#{jobParameters['con
 
 注：上面的 `@Value("#{jobParameters['contractInfoDat']}")` 是用于获取执行时的 `JobParameters` 参数的 key 为 `contractInfoDat` 的值。
 
+> Step 在同一个 Job Parameters 的 Job Instance 下只能完整执行一次，也就是 Status 为 Complete 后，这个 Step 就不能在该 Job Instance 下再次执行，除非设置了 `.allowStartIfComplete(true)`
+
 ---
 
 下文摘抄自 [How Does Spring Batch Step Scope Work](https://stackoverflow.com/questions/38780796/how-does-spring-batch-step-scope-work) ：
